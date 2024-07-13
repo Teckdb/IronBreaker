@@ -5,8 +5,5 @@
 }
 
 #game-screen {
-
-    position: relative;
-    /* overflow: hidden (https://developer.mozilla.org/en-US/docs/Web/CSS/overflow) */
-
+    position: absolute;
 }
