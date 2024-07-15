@@ -1,29 +1,17 @@
 class Brick {
-    constructor(gameSize, playerPos, playerSize, ballPos, ballSize) {
+    constructor(gameArea, gameSize, brickSize, brickPos) {
+
+        this.gameArea = gameArea
+
         this.gameSize = gameSize
 
-        this.playerSize = playerSize
+        this.brickSize = brickSize
 
-        this.playerPos = playerPos
+        this.brickPos = brickPos
 
-        this.ballPos = ballPos
+        this.brickElement = undefined
 
-        this.ballSize = ballSize
-
-        this.brickSize = {
-            w: 100,
-            h: 100
-        }
-
-        this.brickPos = {
-            left: gameSize.w / 2 - this.brickSize.w / 2,
-            top: 50
-        }
-
-        this.BrickVel = {
-            left: 1
-        }
-
+        this.init()
 
     }
 
@@ -36,7 +24,9 @@ class Brick {
         this.brickElement.style.height = `${this.brickSize.h}px`
         this.brickElement.style.left = `${this.brickPos.left}px`
         this.brickElement.style.top = `${this.brickPos.top}px`
-        this.brickElement.style.backgroundColor = `pink`
+        this.brickElement.style.backgroundColor = `#${((1 << 24) * Math.random() | 0).toString(16)}`
+        this.brickElement.style.border = '1px solid purple'
+        this.brickElement.style.borderRadius = '5px'
 
         document.querySelector('#game-screen').appendChild(this.brickElement)
     }
@@ -46,15 +36,8 @@ class Brick {
 
     }
 
-    youWin() {
-        this.brickElement.style.backgroundColor = `red`
-        this.brickElement.style.visibility = `hidden`
-        const paParalo = setTimeout(() => {
-            alert(`YOU WIN!`)
-        }, 250)
-
-
-
+    brokenBrick() {
+        this.brickElement.remove()
     }
 
     updatePosition() {

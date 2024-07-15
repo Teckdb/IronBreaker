@@ -1,11 +1,11 @@
 class Player {
 
-    constructor(gameSize, mousePosition) {
+    constructor(gameSize, lifes) {
 
         this.gameSize = gameSize
 
         this.playerSize = {
-            w: 150,
+            w: 100,
             h: 20
         }
 
@@ -18,7 +18,9 @@ class Player {
             left: 100
         }
 
-        this.mousePosition = mousePosition
+        this.mousePosition = 0
+
+        this.lifes = lifes
 
     }
 
@@ -40,14 +42,17 @@ class Player {
         this.updatePosition()
     }
 
-    moveLeft() {
-        if (this.playerPos.left > 0) {
-            this.playerPos.left -= this.playerVel.left
+    removeLife() {
+        if (this.lifes != 0) {
+            this.lifes--
         }
+
     }
 
-    moveRight() {
-        if (this.playerPos.left <= this.gameSize.w - this.playerSize.w) { this.playerPos.left += this.playerVel.left }
+    moveMouse(valor) {
+        if ((valor >= 0) && (valor <= this.gameSize.w - this.playerSize.w)) {
+            this.playerPos.left = valor
+        }
     }
 
     updatePosition() {

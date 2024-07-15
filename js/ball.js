@@ -23,12 +23,14 @@ class Ball {
 
         this.ballPhysics = {
             speed: {
-                left: 3,
-                top: 8
+                left: 3, //3
+                top: 8//8
             }
         }
 
         this.gameOver = false
+
+
     }
 
     init() {
@@ -40,7 +42,7 @@ class Ball {
         this.ballElement.style.borderRadius = `50%`
         this.ballElement.style.left = `${this.gameSize.w / 2}px`
         this.ballElement.style.top = `${this.gameSize.h - this.ballSize.h - 110}px`
-        this.ballElement.style.backgroundColor = `orange`
+        this.ballElement.style.backgroundColor = `steelblue`
 
         document.querySelector('#game-screen').appendChild(this.ballElement)
     }
@@ -55,8 +57,10 @@ class Ball {
 
     checkBorderCollision() {
 
-        if (this.ballPos.top >= this.gameSize.h + 100) {
+        if ((this.ballPos.top >= this.gameSize.h + 100) && (this.ballPos.top <= this.gameSize.h + 110)) {
             this.gameOver = true
+        } else {
+            this.gameOver = false
         }
 
         if (this.ballPos.top <= 0) {
@@ -85,8 +89,8 @@ class Ball {
         this.ballElement.style.left = `${this.ballPos.left}px`
         this.ballElement.style.top = `${this.ballPos.top}px`
     }
-    clearBall() {
-        this.ba
-    }
+    // clearBall() {
+    //     this.ba
+    // }
 
 }
