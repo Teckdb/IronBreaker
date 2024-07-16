@@ -1,6 +1,6 @@
 class Player {
 
-    constructor(gameSize, lifes) {
+    constructor(gameSize) {
 
         this.gameSize = gameSize
 
@@ -14,13 +14,7 @@ class Player {
             top: this.gameSize.h - 100
         }
 
-        this.playerVel = {
-            left: 100
-        }
-
-        this.mousePosition = 0
-
-        this.lifes = lifes
+        this.init()
 
     }
 
@@ -38,26 +32,23 @@ class Player {
         document.querySelector('#game-screen').appendChild(this.playerElement)
     }
 
-    move() {
+    move(xPosition) {
+
+        if ((xPosition >= 0) && (xPosition <= this.gameSize.w - this.playerSize.w)) {
+            this.playerPos.left = xPosition
+        }
+
         this.updatePosition()
-    }
-
-    removeLife() {
-        if (this.lifes != 0) {
-            this.lifes--
-        }
-
-    }
-
-    moveMouse(valor) {
-        if ((valor >= 0) && (valor <= this.gameSize.w - this.playerSize.w)) {
-            this.playerPos.left = valor
-        }
     }
 
     updatePosition() {
         this.playerElement.style.left = `${this.playerPos.left}px`
     }
 
+    removeLife() { //in progress
+        if (this.lifes != 0) {
+            this.lifes--
+        }
+    }
 
 }

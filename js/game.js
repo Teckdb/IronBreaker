@@ -10,39 +10,52 @@ const Game = {
         top: 0
     },
 
-    keys: {
-        LEFT: 'ArrowLeft',
-        RIGHT: 'ArrowRight'
-    },
-
     mousePosition: 0,
 
     gameArea: document.getElementById('game-screen'),
 
-    firstPlayer: undefined,
-    pelotaDePrueba: undefined,
-    intervalGame: undefined,
+    scoreboardElement: document.createElement('div'),
 
-    frameCounter: 0,
+
+    scoreboardSize: {
+        h: 50,
+        w: 200
+    },
+
+    scoreboardPos: {
+        top: window.innerHeight - 100,//+ this.rect.top,
+        left: -250 //+ this.rect.left
+
+    },
+
+    firstPlayer: undefined,
+
+    ball: undefined,
+
+    hasWon: false,
+    hasLost: false,
+
+    lifes: 4,
 
     actualMap: [],
 
-    randomColor: Math.floor(Math.random() * 360),
+    balls: [],
 
-    //lifes: 3,
-    ball: [],
+    points: 0,
+
+
 
     init() {
         this.setGameDimensions()
+        this.showScoreboard()
         this.start()
+
     },
 
     setGameDimensions() {
-        // document.querySelector('#game-background').style.backgroundImage = `url('img/img_back.png')`
         document.querySelector('#game-background').style.height = `${window.innerHeight}px`
         document.querySelector('#game-background').style.width = `${window.innerWidth}px`
-        document.querySelector('#game-background').position = `absolute`
-        // document.querySelector('#game-background').style.backgroundRepeat = ``
+        document.querySelector('#game-background').style.position = `absolute`
         document.querySelector('#game-background').style.background = `turquoise`
 
         document.querySelector('#game-screen').style.height = `${this.gameSize.h}px`
@@ -53,122 +66,151 @@ const Game = {
 
     },
 
+    showScoreboard() {
+        this.scoreboardElement.style.height = `${this.scoreboardSize.h}px`
+        this.scoreboardElement.style.width = `${this.scoreboardSize.w}px`
+        this.scoreboardElement.style.position = `absolute`
+        this.scoreboardElement.style.top = `${this.scoreboardPos.top}px`
+        this.scoreboardElement.style.left = `${this.scoreboardPos.left}px`
+        this.scoreboardElement.style.background = `green`
+        this.scoreboardElement.style.color = `ivory`
+
+        //this.scoreboardElement.style.borderRadius = `10%`
+
+        document.querySelector('#game-screen').appendChild(this.scoreboardElement)
+    },
+
     start() {
         this.createPlayer()
-        this.createBall()
+        this.createBalls()
         this.setEventListeners()
-        this.createBrick()
+        this.createBricks()
         this.gameLoop()
     },
 
     gameLoop() {
-        invervalGame = setInterval(() => {
-            this.frameCounter++
+        setInterval(() => {
             this.moveAll()
         }, 20)
     },
 
     createPlayer() {
-        firstPlayer = new Player(this.gameSize, this.mousePosition)
-        firstPlayer.init()
+        this.firstPlayer = new Player(this.gameSize, this.mousePosition)
     },
 
-    createBall() {
-        pelotaDePrueba = new Ball(this.gameSize, firstPlayer.playerPos, firstPlayer.playerSize)
-        pelotaDePrueba.init()
-
-        // for (let i = lifes; i > 0; i--) {
-        //     this.ball.push(new Ball(this.gameSize, firstPlayer.playerPos, firstPlayer.playerPos))
-        // }
-    },
-
-    createBrick() {
-        actualMap = mapLevel1.map((eachBrick) => {
-            this.actualMap.push(new Brick(this.gameArea, this.gameSize, eachBrick.brickSize, eachBrick.brickPos))
-
+    createBalls() {
+        this.balls = ballsData.map((eachBall) => {
+            return new Ball(this.gameSize, eachBall.ballSize, eachBall.ballPos)
         })
-        //actualMap.init()
-        console.log(this.actualMap)
+        this.checkLife()
+    },
+
+    createBricks() {
+        this.actualMap = mapLevel1.map((eachBrick) => {
+            return new Brick(eachBrick.brickSize, eachBrick.brickPos)
+        })
     },
 
     setEventListeners() {
 
         document.onmousemove = event => {
 
-            const rect = this.gameArea.getBoundingClientRect(); // Obtener las coordenadas del área de juego
-            const x = event.clientX - rect.left; // Coordenada X relativa al área de juego
-            const y = event.clientY - rect.top;  // Coordenada Y relativa al área de juego
+            const rect = this.gameArea.getBoundingClientRect();// obtain the playground by coordinates
 
-            // Mover el objeto a la posición del ratón dentro del área de juego
-            firstPlayer.moveMouse(x - firstPlayer.playerSize.w / 2)
+
+            const x = event.clientX - rect.left; // Coordinate X relative to the playground 
+            const y = event.clientY - rect.top;  // Coordinate Y relative to the playground 
+
+            const center = x - this.firstPlayer.playerSize.w / 2
+
+            // Moving the object to the playground detected by the mouse position
+            this.firstPlayer.move(center)
         }
     },
 
     moveAll() {
-        firstPlayer.move()
-        pelotaDePrueba.move()
-        this.collisionBallPlayer()
-        this.collisionBallBrick()
-        this.checkLife()
+        this.firstPlayer.move()
+        this.ball.move()
+        this.checkCollisionBallPlayer()
+        this.checkCollisionBallBrick()
+        this.checkLoseBall()
+        this.scoreboardElement.innerHTML = `${this.points} points <br> ${this.lifes} lives`
 
     },
 
-    collisionBallPlayer() {
-
+    checkCollisionBallPlayer() {
 
         if (
-            firstPlayer.playerPos.left <= pelotaDePrueba.ballPos.left + pelotaDePrueba.ballSize.w &&
-            firstPlayer.playerPos.left + firstPlayer.playerSize.w >= pelotaDePrueba.ballPos.left &&
-            firstPlayer.playerPos.top <= pelotaDePrueba.ballPos.top + pelotaDePrueba.ballSize.h &&
-            firstPlayer.playerPos.top + firstPlayer.playerSize.h >= pelotaDePrueba.ballPos.top
+            this.firstPlayer.playerPos.left <= this.ball.ballPos.left + this.ball.ballSize.w &&
+            this.firstPlayer.playerPos.left + this.firstPlayer.playerSize.w >= this.ball.ballPos.left &&
+            this.firstPlayer.playerPos.top <= this.ball.ballPos.top + this.ball.ballSize.h &&
+            this.firstPlayer.playerPos.top + this.firstPlayer.playerSize.h >= this.ball.ballPos.top
         ) {
-            pelotaDePrueba.turnTop()
+            this.ball.turnTop()
         }
-
-
     },
 
-    collisionBallBrick() {
+    checkCollisionBallBrick() {
 
-        this.actualMap.forEach((brickEach, idx) => {
+        this.actualMap.forEach((eachBrick, idx) => {
             if (
-                brickEach.brickPos.left <= pelotaDePrueba.ballPos.left + pelotaDePrueba.ballSize.w &&
-                brickEach.brickPos.left + brickEach.brickSize.w >= pelotaDePrueba.ballPos.left &&
-                brickEach.brickPos.top <= pelotaDePrueba.ballPos.top + pelotaDePrueba.ballSize.h &&
-                brickEach.brickPos.top + brickEach.brickSize.h > pelotaDePrueba.ballPos.top
+                eachBrick.brickPos.left <= this.ball.ballPos.left + this.ball.ballSize.w &&
+                eachBrick.brickPos.left + eachBrick.brickSize.w >= this.ball.ballPos.left &&
+                eachBrick.brickPos.top <= this.ball.ballPos.top + this.ball.ballSize.h &&
+                eachBrick.brickPos.top + eachBrick.brickSize.h > this.ball.ballPos.top
             ) {
-                pelotaDePrueba.turnTop()
+                this.ball.turnTop()
+                this.points += 50
                 this.actualMap.splice(idx, 1)
-                brickEach.brokenBrick()
+                eachBrick.removeBrick()
             }
         })
 
-        let counterFinish = 0
-        if (this.actualMap.length === 0 && counterFinish === 0) {
-            counterFinish++
+        if (!this.hasWon && this.actualMap.length === 0) {
+            this.hasWon = true
             this.youWin()
         }
+    },
 
-
-
-
+    checkLoseBall() {
+        if ((this.ball.ballPos.top >= this.gameSize.h + 100) && (this.ball.ballPos.top <= this.ball.gameSize.h + 110) && !this.hasLost) {
+            this.hasLost = true
+            this.removeLife()
+        }
     },
 
     checkLife() {
-        if (pelotaDePrueba.gameOver && this.lifes != 0) {
+        if (this.lifes !== 0) {
+            this.lifes--
+            this.hasLost = false
             this.newLife()
+
+        }
+        else {
+            this.youLose()
         }
     },
 
-    youWin() {
-
-        const timeoutID = setTimeout(() => {
-            alert('MÁQUINA, MASTODONTE, GANADORRRRR')
-        }, 1000)
+    newLife() {
+        this.ball = this.balls[0]
+        this.ball.init()
     },
 
-    newLife() {
+    removeLife() {
+        this.balls.shift()
+        this.checkLife()
+    },
 
+    youWin() {
+        const timeoutID = setTimeout(() => {
+            alert('YOU MADE IT!')
+        }, 600)
+    },
+
+    youLose() {
+        const timeoutID = setTimeout(() => {
+            alert('YOU LOSE!')
+        }, 600)
     }
 
 }

@@ -1,18 +1,11 @@
 class Brick {
-    constructor(gameArea, gameSize, brickSize, brickPos) {
-
-        this.gameArea = gameArea
-
-        this.gameSize = gameSize
+    constructor(brickSize, brickPos) {
 
         this.brickSize = brickSize
 
         this.brickPos = brickPos
 
-        this.brickElement = undefined
-
         this.init()
-
     }
 
     init() {
@@ -31,17 +24,7 @@ class Brick {
         document.querySelector('#game-screen').appendChild(this.brickElement)
     }
 
-    move() {
-        this.updatePosition()
-
-    }
-
-    brokenBrick() {
+    removeBrick() {
         this.brickElement.remove()
     }
-
-    updatePosition() {
-
-    }
-
 }

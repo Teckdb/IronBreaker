@@ -1,40 +1,33 @@
 class Ball {
 
-    constructor(gameSize, playerPos, playerSize) {
+    constructor(gameSize, ballSize, ballPos) {
 
         this.gameSize = gameSize
-        this.playerPos = playerPos
-        this.playerSize = playerSize
 
-        this.ballSize = {
-            w: 50,
-            h: 50
-        }
+        this.ballSize = ballSize
 
-        this.ballPos = {
-            left: gameSize.w / 2,
+        this.ballPos = this.ballPos = {
+            left: this.gameSize.w / 2,
             top: this.gameSize.h - this.ballSize.h - 110,
-        }
-
-        this.ballVel = {
-            left: 1,
-            top: -2
         }
 
         this.ballPhysics = {
             speed: {
-                left: 3, //3
-                top: 8//8
+                left: 3, //default is => 3
+                top: 8   //default is => 8
             }
         }
 
-        this.gameOver = false
+        this.loseBallInGame = false
+
+        this.ballElement = document.createElement('div')
+
+
 
 
     }
 
     init() {
-        this.ballElement = document.createElement('div')
 
         this.ballElement.style.position = "absolute"
         this.ballElement.style.width = `${this.ballSize.w}px`
@@ -56,12 +49,6 @@ class Ball {
     }
 
     checkBorderCollision() {
-
-        if ((this.ballPos.top >= this.gameSize.h + 100) && (this.ballPos.top <= this.gameSize.h + 110)) {
-            this.gameOver = true
-        } else {
-            this.gameOver = false
-        }
 
         if (this.ballPos.top <= 0) {
             this.turnTop()
@@ -89,8 +76,4 @@ class Ball {
         this.ballElement.style.left = `${this.ballPos.left}px`
         this.ballElement.style.top = `${this.ballPos.top}px`
     }
-    // clearBall() {
-    //     this.ba
-    // }
-
 }
