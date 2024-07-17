@@ -5,6 +5,8 @@ class Brick {
 
         this.brickPos = brickPos
 
+        this.randomNumber = Math.floor(Math.random() * 4)
+
         this.init()
     }
 
@@ -17,9 +19,13 @@ class Brick {
         this.brickElement.style.height = `${this.brickSize.h}px`
         this.brickElement.style.left = `${this.brickPos.left}px`
         this.brickElement.style.top = `${this.brickPos.top}px`
-        this.brickElement.style.backgroundColor = `#${((1 << 24) * Math.random() | 0).toString(16)}`
-        this.brickElement.style.border = '1px solid purple'
+        this.brickElement.style.backgroundColor = `${brickColors[this.randomNumber]}`
+        this.brickElement.style.border = '2px solid navy'
         this.brickElement.style.borderRadius = '5px'
+        //this.brickElement.style.margin = '8px'
+        // this.brickElement.style.boxShadow = '1px 1px 5px black'
+
+
 
         document.querySelector('#game-screen').appendChild(this.brickElement)
     }

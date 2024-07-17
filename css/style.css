@@ -1,9 +1,84 @@
 * {
-
     margin: 0;
-    padding: 0
+    padding: 0;
+    text-shadow: 1px 1px 2px black;
+}
+
+h1 {
+    font-size: 50px;
+    color: #f5ff62
+}
+
+h2 {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-style: oblique;
+    color: #f5ff62
+}
+
+body {
+    font-family: "Rubik Mono One", monospace;
+    font-weight: 400;
+    font-style: normal;
+    background-image: url("/img/back.png");
+    ;
 }
 
 #game-screen {
     position: absolute;
+}
+
+#game-menu {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100%;
+    width: 700px;
+    left: 25%;
+    text-align: center;
+
+}
+
+p {
+    padding: 50px;
+    margin: 15px;
+}
+
+ol {
+    padding: 80px;
+    border: 1px solid black;
+    border-radius: 60px;
+    color: white;
+    font-size: 23px;
+}
+
+.list {
+    padding: 15px 15px;
+    list-style: none;
+}
+
+.btn {
+    background: linear-gradient(45deg, #6a11cb, #2575fc);
+    border: none;
+    border-radius: 25px;
+    color: rgb(255, 255, 255);
+    cursor: pointer;
+    font-size: 16px;
+    padding: 15px 30px;
+    text-align: center;
+    text-transform: uppercase;
+    transition: 0.3s, transform 0.3s;
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.2);
+    margin-top: 40px;
+}
+
+.btn:hover {
+    background: linear-gradient(45deg, #2575fc, #6a11cb);
+    transform: scale(1.05);
+}
+
+.btn:active {
+    transform: scale(0.95);
 }

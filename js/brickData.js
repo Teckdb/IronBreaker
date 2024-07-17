@@ -19,6 +19,7 @@ const mapLevel1 = [
             top: 50
         }
 
+
     },
     {
         brickSize: {

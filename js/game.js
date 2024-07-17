@@ -41,9 +41,16 @@ const Game = {
 
     balls: [],
 
+    totalBonus: [],
+
     points: 0,
 
+    center: 0,
 
+    clickToStart: false,
+
+    randomNumber: Math.floor(Math.random() * 11),
+    randomBonus: Math.floor(Math.random() * 6),
 
     init() {
         this.setGameDimensions()
@@ -56,11 +63,14 @@ const Game = {
         document.querySelector('#game-background').style.height = `${window.innerHeight}px`
         document.querySelector('#game-background').style.width = `${window.innerWidth}px`
         document.querySelector('#game-background').style.position = `absolute`
-        document.querySelector('#game-background').style.background = `turquoise`
+        //document.querySelector('#game-background').style.background = `turquoise`
+        document.querySelector('#game-background').style.backgroundImage = `url("./img/back.png")`
 
         document.querySelector('#game-screen').style.height = `${this.gameSize.h}px`
         document.querySelector('#game-screen').style.width = `${this.gameSize.w}px`
-        document.querySelector('#game-screen').style.background = `ivory`
+        document.querySelector('#game-screen').style.background = `rgba(121, 58, 246, 0.34)`
+        document.querySelector('#game-screen').style.border = '1px solid black'
+        document.querySelector('#game-screen').style.borderRadius = '60px'
         document.querySelector('#game-screen').style.left = `${this.gamePos.left}%`
         document.querySelector('#game-screen').style.cursor = `none`
 
@@ -72,8 +82,14 @@ const Game = {
         this.scoreboardElement.style.position = `absolute`
         this.scoreboardElement.style.top = `${this.scoreboardPos.top}px`
         this.scoreboardElement.style.left = `${this.scoreboardPos.left}px`
-        this.scoreboardElement.style.background = `green`
-        this.scoreboardElement.style.color = `ivory`
+        this.scoreboardElement.style.background = `rgba(121, 58, 246, 0.34)`
+        this.scoreboardElement.style.border = '1px solid black'
+        this.scoreboardElement.style.borderRadius = '60px'
+        this.scoreboardElement.style.color = `#f5ff62`
+        this.scoreboardElement.style.display = 'flex'
+        this.scoreboardElement.style.justifyContent = 'center'
+        this.scoreboardElement.style.alignItems = 'center'
+
 
         //this.scoreboardElement.style.borderRadius = `10%`
 
@@ -91,7 +107,8 @@ const Game = {
     gameLoop() {
         setInterval(() => {
             this.moveAll()
-        }, 20)
+        }, 13
+        )
     },
 
     createPlayer() {
@@ -100,7 +117,7 @@ const Game = {
 
     createBalls() {
         this.balls = ballsData.map((eachBall) => {
-            return new Ball(this.gameSize, eachBall.ballSize, eachBall.ballPos)
+            return new Ball(this.gameSize, eachBall.ballSize, this.firstPlayer.playerSize)
         })
         this.checkLife()
     },
@@ -108,8 +125,13 @@ const Game = {
     createBricks() {
         this.actualMap = mapLevel1.map((eachBrick) => {
             return new Brick(eachBrick.brickSize, eachBrick.brickPos)
+
         })
     },
+
+    // createBonus() {
+    //     this.totalBonus.push(new Bonus(this.gameSize, this.brickPos, this.randomBonus))
+    // },
 
     setEventListeners() {
 
@@ -121,21 +143,28 @@ const Game = {
             const x = event.clientX - rect.left; // Coordinate X relative to the playground 
             const y = event.clientY - rect.top;  // Coordinate Y relative to the playground 
 
-            const center = x - this.firstPlayer.playerSize.w / 2
+            this.center = x - this.firstPlayer.playerSize.w / 2
 
             // Moving the object to the playground detected by the mouse position
-            this.firstPlayer.move(center)
+            this.firstPlayer.move(this.center)
+            //this.ball.move(this.center)
+        }
+
+        document.onclick = event => {
+            if (!this.clickToStart) {
+                this.clickToStart = true
+                //this.ball.move(this.center, this.clickToStart)
+            }
         }
     },
 
     moveAll() {
         this.firstPlayer.move()
-        this.ball.move()
+        this.ball.move(this.center, this.clickToStart)
         this.checkCollisionBallPlayer()
         this.checkCollisionBallBrick()
         this.checkLoseBall()
         this.scoreboardElement.innerHTML = `${this.points} points <br> ${this.lifes} lives`
-
     },
 
     checkCollisionBallPlayer() {
@@ -162,6 +191,11 @@ const Game = {
                 this.ball.turnTop()
                 this.points += 50
                 this.actualMap.splice(idx, 1)
+                if (Math.floor(Math.random() * 11) >= 8) {
+                    this.totalBonus.push(new Bonus(this.gameSize, eachBrick.brickPos, this.randomBonus))
+                    console.log("BONUS!")
+                    console.log(this.totalBonus)
+                }
                 eachBrick.removeBrick()
             }
         })
@@ -173,10 +207,14 @@ const Game = {
     },
 
     checkLoseBall() {
-        if ((this.ball.ballPos.top >= this.gameSize.h + 100) && (this.ball.ballPos.top <= this.ball.gameSize.h + 110) && !this.hasLost) {
-            this.hasLost = true
-            this.removeLife()
-        }
+        this.balls.forEach((elm) => {
+            if ((elm.ballPos.top >= this.gameSize.h + 50) && (elm.ballPos.top <= elm.gameSize.h + 60) && !this.hasLost) {
+                this.hasLost = true
+                this.clickToStart = false
+                this.removeLife()
+                elm.removeBall()
+            }
+        })
     },
 
     checkLife() {
@@ -197,6 +235,7 @@ const Game = {
     },
 
     removeLife() {
+        //this.ball.remove()
         this.balls.shift()
         this.checkLife()
     },

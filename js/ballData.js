@@ -1,29 +1,29 @@
 const ballsData = [
     {
         ballSize: {
-            w: 50,
-            h: 50
+            w: 30,
+            h: 30
         }
 
     },
     {
         ballSize: {
-            w: 50,
-            h: 50
+            w: 30,
+            h: 30
         }
 
 
     },
     {
         ballSize: {
-            w: 50,
-            h: 50
+            w: 30,
+            h: 30
         }
     },
     {
         ballSize: {
-            w: 50,
-            h: 50
+            w: 30,
+            h: 30
         }
 
     }

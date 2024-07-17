@@ -7,21 +7,41 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>DOM game essentials!</title>
     <link rel="stylesheet" href="./css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik+Mono+One&display=swap" rel="stylesheet">
 </head>
 
 <body>
+    <audio src="./music/Kavinsky - Nightcall (Instrumental Synth Remake).mp3" controls autoplay loop
+        preload="auto"></audio>
     <div id="game-background">
-        <figure id="game-screen">
+        <figure id="game-menu">
+            <h1>IronBreak</h1>
+            <h2> MENU </h2>
+            <ol>
+                <li class="list">Move around using the mouse</li>
+                <li class="list">Click the mouse button to release the ball</li>
+                <li class="list">Try to break all the briks</li>
+                <li class="list">Stay alert! There could be spetial items</li>
+            </ol>
+
+            <button class="btn" id="btn">Click to Start</button>
+
         </figure>
+        <figure id="game-screen"></figure>
+        <figure id="game-credits"></figure>
     </div>
     <script src="./js/ball.js"></script>
     <script src="./js/player.js"></script>
     <script src="./js/game.js"></script>
+    <script src="./js/bonus.js"></script>
+    <script src="./js/brickColor.js"></script>
     <script src="./js/brick.js"></script>
     <script src="./js/brickData.js"></script>
     <script src="./js/ballData.js"></script>
+    <script src="./js/bonusData.js"></script>
     <script src="./js/index.js"></script>
-
 </body>
 
 </html>

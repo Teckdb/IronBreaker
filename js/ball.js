@@ -1,12 +1,14 @@
 class Ball {
 
-    constructor(gameSize, ballSize, ballPos) {
+    constructor(gameSize, ballSize, playerSize) {
 
         this.gameSize = gameSize
 
         this.ballSize = ballSize
 
-        this.ballPos = this.ballPos = {
+        this.playerSize = playerSize
+
+        this.ballPos = {
             left: this.gameSize.w / 2,
             top: this.gameSize.h - this.ballSize.h - 110,
         }
@@ -14,16 +16,13 @@ class Ball {
         this.ballPhysics = {
             speed: {
                 left: 3, //default is => 3
-                top: 8   //default is => 8
+                top: 10   //default is => 8
             }
         }
 
         this.loseBallInGame = false
 
         this.ballElement = document.createElement('div')
-
-
-
 
     }
 
@@ -32,20 +31,34 @@ class Ball {
         this.ballElement.style.position = "absolute"
         this.ballElement.style.width = `${this.ballSize.w}px`
         this.ballElement.style.height = `${this.ballSize.h}px`
+        this.ballElement.styleborder = '3px solid black'
         this.ballElement.style.borderRadius = `50%`
         this.ballElement.style.left = `${this.gameSize.w / 2}px`
         this.ballElement.style.top = `${this.gameSize.h - this.ballSize.h - 110}px`
-        this.ballElement.style.backgroundColor = `steelblue`
+        this.ballElement.style.backgroundColor = `#f5ff62`
 
         document.querySelector('#game-screen').appendChild(this.ballElement)
     }
 
-    move() {
-        this.ballPos.top += this.ballPhysics.speed.top
-        this.ballPos.left += this.ballPhysics.speed.left
+    move(xPosition, clickToStart) {
+
+        if (clickToStart) {
+            this.ballPos.top += this.ballPhysics.speed.top
+            this.ballPos.left += this.ballPhysics.speed.left
+            this.updatePosition()
+
+        } else {
+            if ((xPosition >= 0) && (xPosition <= this.gameSize.w - this.playerSize.w)) {
+                this.ballPos.left = xPosition + ((this.playerSize.w / 2) - (this.ballSize.w / 2))
+                this.updatePosition()
+            } else {
+                //this.ballPos.left = this.gameSize.w / 2 - this.ballSize.w / 2
+                this.updatePosition()
+            }
+        }
 
         this.checkBorderCollision()
-        this.updatePosition()
+
     }
 
     checkBorderCollision() {
@@ -70,6 +83,10 @@ class Ball {
 
     turnLeft() {
         this.ballPhysics.speed.left *= -1
+    }
+
+    removeBall() {
+        this.ballElement.remove()
     }
 
     updatePosition() {

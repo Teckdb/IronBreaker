@@ -5,7 +5,7 @@ class Player {
         this.gameSize = gameSize
 
         this.playerSize = {
-            w: 100,
+            w: 108,
             h: 20
         }
 
@@ -27,7 +27,10 @@ class Player {
         this.playerElement.style.height = `${this.playerSize.h}px`
         this.playerElement.style.left = `${this.gameSize.w / 2 - this.playerSize.w / 2}px`
         this.playerElement.style.top = `${this.playerPos.top}px`
-        this.playerElement.style.backgroundColor = `blue`
+        this.playerElement.style.borderRadius = '20px'
+        //this.playerElement.style.background = 'black'
+        this.playerElement.style.backgroundImage = `url("./img/player.png")`
+        this.playerElement.style.backgroundSize = `auto 100%`
 
         document.querySelector('#game-screen').appendChild(this.playerElement)
     }
