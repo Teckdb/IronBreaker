@@ -3,77 +3,91 @@ bonus = [
         id: 0,
         name: "multiBalls",
         amountOfBalls: 4,
-        color: '#f5ff62',
         bonusSize: {
-            w: 40,
-            h: 60
+            w: 100,
+            h: 100
         },
         bonusPhysics: {
             speed: {
-                left: 8, //default is => 3
-                top: 10   //default is => 8
+                left: 8,
+                top: 6
             }
         },
+        img: {
+            src: `url("./img/fire.png")`
+        }
     },
     {
         id: 1,
         name: 'reducePlayer',
         playerSize: 54,
         bonusSize: {
-            w: 40,
-            h: 60
+            w: 120,
+            h: 80
         },
         bonusPhysics: {
             speed: {
-                left: 8, //default is => 3
-                top: 10   //default is => 8
+                left: 8,
+                top: 6
             }
         },
+        img: {
+            src: `url("./img/reduce.png")`
+        }
     },
     {
         id: 2,
         name: 'increasePlayer',
         playerSize: 216,
         bonusSize: {
-            w: 40,
-            h: 60
+            w: 120,
+            h: 80
         },
         bonusPhysics: {
             speed: {
-                left: 8, //default is => 3
-                top: 10   //default is => 8
+                left: 8,
+                top: 6
             }
         },
+        img: {
+            src: `url("./img/increase.png")`
+        }
     },
     {
         id: 3,
         name: "bazuka",
         misilSize: 60,
         bonusSize: {
-            w: 40,
+            w: 80,
             h: 60
         },
         bonusPhysics: {
             speed: {
-                left: 8, //default is => 3
-                top: 10   //default is => 8
+                left: 8,
+                top: 6
             }
         },
+        img: {
+            src: `url("./img/gun.png")`
+        }
     },
     {
         id: 4,
         name: "addLife",
         amountLife: 2,
         bonusSize: {
-            w: 40,
+            w: 60,
             h: 60
         },
         bonusPhysics: {
             speed: {
-                left: 8, //default is => 3
-                top: 10   //default is => 8
+                left: 8,
+                top: 6
             }
         },
+        img: {
+            src: `url("./img/bonusHeart.png")`
+        }
     },
     {
         id: 5,
@@ -83,14 +97,17 @@ bonus = [
             top: 15
         },
         bonusSize: {
-            w: 40,
-            h: 60
+            w: 60,
+            h: 80
         },
         bonusPhysics: {
             speed: {
-                left: 8, //default is => 3
-                top: 10   //default is => 8
+                left: 8,
+                top: 6
             }
+        },
+        img: {
+            src: `url("./img/move.png")`
         }
     }
 ]

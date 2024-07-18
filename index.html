@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>DOM game essentials!</title>
+    <title>IronBreaker</title>
     <link rel="stylesheet" href="./css/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,24 +13,44 @@
 </head>
 
 <body>
-    <audio src="./music/Kavinsky - Nightcall (Instrumental Synth Remake).mp3" controls autoplay loop
-        preload="auto"></audio>
+    <div class="audio-container" id="audio-container">
+        <audio class="audioLoop" autoplay loop>
+            <source src="./music/Kavinsky - Nightcall (Instrumental Synth Remake).mp3" type="audio/mp3">
+        </audio>
+        <button class="mute-btn"></button>
+    </div>
     <div id="game-background">
         <figure id="game-menu">
-            <h1>IronBreak</h1>
-            <h2> MENU </h2>
+            <h1>IronBreaker</h1>
+            <h2> Menu </h2>
             <ol>
                 <li class="list">Move around using the mouse</li>
                 <li class="list">Click the mouse button to release the ball</li>
                 <li class="list">Try to break all the briks</li>
                 <li class="list">Stay alert! There could be spetial items</li>
             </ol>
-
             <button class="btn" id="btn">Click to Start</button>
 
         </figure>
         <figure id="game-screen"></figure>
-        <figure id="game-credits"></figure>
+        <figure id="game-credits">
+            <h1>IronBreak</h1>
+            <h2> Game over </h2>
+            <div id="final-score">
+                <h3>Final Score</h3>
+                <div id="score"></div>
+            </div>
+            <button class="btn-restart" id="btn-restart">Restart</button>
+        </figure>
+        <figure id="winner-credits">
+            <h1>IronBreak</h1>
+            <h2> You made it! </h2>
+            <div id="final-points">
+                <h3>Final Score</h3>
+                <div id="points"></div>
+            </div>
+            <button class="btn-restart" id="btn-restart-2">Restart</button>
+        </figure>
     </div>
     <script src="./js/ball.js"></script>
     <script src="./js/player.js"></script>

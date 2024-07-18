@@ -18,8 +18,6 @@ const mapLevel1 = [
             left: 150,
             top: 50
         }
-
-
     },
     {
         brickSize: {
@@ -30,7 +28,6 @@ const mapLevel1 = [
             left: 250,
             top: 50
         }
-
     },
     {
         brickSize: {
@@ -41,7 +38,6 @@ const mapLevel1 = [
             left: 350,
             top: 50
         }
-
     },
     {
         brickSize: {
@@ -52,7 +48,6 @@ const mapLevel1 = [
             left: 450,
             top: 50
         }
-
     },
     {
         brickSize: {
@@ -63,7 +58,6 @@ const mapLevel1 = [
             left: 550,
             top: 50
         }
-
     },
     {
         brickSize: {
@@ -84,7 +78,6 @@ const mapLevel1 = [
             left: 150,
             top: 100
         }
-
     },
     {
         brickSize: {
@@ -95,7 +88,6 @@ const mapLevel1 = [
             left: 250,
             top: 100
         }
-
     },
     {
         brickSize: {
@@ -106,7 +98,6 @@ const mapLevel1 = [
             left: 350,
             top: 100
         }
-
     },
     {
         brickSize: {
@@ -117,7 +108,6 @@ const mapLevel1 = [
             left: 450,
             top: 100
         }
-
     },
     {
         brickSize: {
@@ -128,7 +118,6 @@ const mapLevel1 = [
             left: 550,
             top: 100
         }
-
     },
     {
         brickSize: {
@@ -149,7 +138,6 @@ const mapLevel1 = [
             left: 150,
             top: 150
         }
-
     },
     {
         brickSize: {
@@ -160,7 +148,6 @@ const mapLevel1 = [
             left: 250,
             top: 150
         }
-
     },
     {
         brickSize: {
@@ -171,7 +158,6 @@ const mapLevel1 = [
             left: 350,
             top: 150
         }
-
     },
     {
         brickSize: {
@@ -182,7 +168,6 @@ const mapLevel1 = [
             left: 450,
             top: 150
         }
-
     },
     {
         brickSize: {
@@ -193,7 +178,6 @@ const mapLevel1 = [
             left: 550,
             top: 150
         }
-
     },
     {
         brickSize: {
@@ -214,7 +198,6 @@ const mapLevel1 = [
             left: 150,
             top: 200
         }
-
     },
     {
         brickSize: {
@@ -225,7 +208,6 @@ const mapLevel1 = [
             left: 250,
             top: 200
         }
-
     },
     {
         brickSize: {
@@ -236,7 +218,6 @@ const mapLevel1 = [
             left: 350,
             top: 200
         }
-
     },
     {
         brickSize: {
@@ -247,7 +228,6 @@ const mapLevel1 = [
             left: 450,
             top: 200
         }
-
     },
     {
         brickSize: {
@@ -258,7 +238,6 @@ const mapLevel1 = [
             left: 550,
             top: 200
         }
-
     },
     {
         brickSize: {
@@ -279,7 +258,6 @@ const mapLevel1 = [
             left: 150,
             top: 250
         }
-
     },
     {
         brickSize: {
@@ -290,7 +268,6 @@ const mapLevel1 = [
             left: 250,
             top: 250
         }
-
     },
     {
         brickSize: {
@@ -301,7 +278,6 @@ const mapLevel1 = [
             left: 350,
             top: 250
         }
-
     },
     {
         brickSize: {
@@ -312,7 +288,6 @@ const mapLevel1 = [
             left: 450,
             top: 250
         }
-
     },
     {
         brickSize: {
@@ -323,6 +298,5 @@ const mapLevel1 = [
             left: 550,
             top: 250
         }
-
     },
 ]

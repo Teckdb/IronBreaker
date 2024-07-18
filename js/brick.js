@@ -11,7 +11,6 @@ class Brick {
     }
 
     init() {
-
         this.brickElement = document.createElement('div')
 
         this.brickElement.style.position = "absolute"
@@ -22,10 +21,6 @@ class Brick {
         this.brickElement.style.backgroundColor = `${brickColors[this.randomNumber]}`
         this.brickElement.style.border = '2px solid navy'
         this.brickElement.style.borderRadius = '5px'
-        //this.brickElement.style.margin = '8px'
-        // this.brickElement.style.boxShadow = '1px 1px 5px black'
-
-
 
         document.querySelector('#game-screen').appendChild(this.brickElement)
     }
